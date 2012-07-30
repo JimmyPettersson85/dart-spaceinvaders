@@ -23,11 +23,9 @@ void main() {
 
 void startGame(MouseEvent event) {
   toggleButtons();
-  List<String> sources = new List<String>();
-  sources.add('player');
-  sources.add('enemy');
-  sources.add('rocket');
-  loadImages(sources, (images) {
+  
+  /* Start game when images are done loading. */
+  loadImages(['player', 'enemy', 'rocket'], (images) {
     game = new Game(canvas, images['player'], images['enemy'], images['rocket']);
     game.setup();
     game.start();
@@ -37,8 +35,14 @@ void startGame(MouseEvent event) {
 void stopGame(MouseEvent event) {
   toggleButtons();
   game.stop();
+  game = null;
 }
 
+/** 
+ * Since images are not loaded in the constructor of ImageElement
+ * we have to wait for them to load and use a callback when all
+ * images have been loaded.
+ */
 void loadImages(List<String> sources, callback) {
   Map<String, ImageElement> images = new Map<String, ImageElement>();
   for (String source in sources) {
