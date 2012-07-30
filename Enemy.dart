@@ -21,8 +21,6 @@ class Enemy extends ScreenObject {
   }
   
   bool get atBottom() => y > 700;
-  int get centerX() => x + (SIZE/2).toInt();
-  int get bottomY() => y + SIZE + Rocket.SIZE;
   
   void updatePosition(int dx, int dy) {
     if (x >= startX + 2 * SIZE) direction = Directions.LEFT;

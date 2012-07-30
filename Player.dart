@@ -15,7 +15,4 @@ class Player extends ScreenObject {
     draw();
   }
   
-  int get centerX() => x + 18;
-  int get topY() => Game.HEIGHT - SIZE - Rocket.SIZE;
-  
 }
