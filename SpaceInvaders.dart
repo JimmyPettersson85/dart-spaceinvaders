@@ -44,7 +44,7 @@ void loadImages(List<String> sources, callback) {
   for (String source in sources) {
     ImageElement img = new ImageElement('img/${source}.png');
     img.on.load.add((event) {
-      images.putIfAbsent(source, fn() => img);
+      images.putIfAbsent(source, () => img);
       if (images.length == sources.length)
         callback(images);
     });
