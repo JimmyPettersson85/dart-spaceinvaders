@@ -9,7 +9,6 @@ class Enemy extends ScreenObject {
   
   int startX, direction;
   
-  static final String COLOR = 'black';
   static final int SIZE = 40;
   static final int DX = 2;
   static final int DY = 1;
