@@ -119,6 +119,7 @@ class Game {
   
   /** Collision detection between rockets and enemies. */
   void checkCollisions() {
+    /* Player rockets hitting enemies */
     for (EnemyRow er in enemyRows) {
       for (Enemy e in er.enemies) {
         for (Rocket r in playerRockets) {
@@ -141,6 +142,7 @@ class Game {
       }
     }
     
+    /* Enemy rockets hitting player */
     for (Rocket r in enemyRockets) {
       if (player.checkCollision(r)) {
         gameOver();
@@ -150,17 +152,10 @@ class Game {
   
   /** Moves the player. */
   void movePlayer() {
-    if (actionFlag == NONE) return;
-    
-    switch (actionFlag) {
-      case LEFT:
-        if (player.x > 0)
-          player.updatePosition(Directions.LEFT * Player.DX, 0);
-        break;
-      case RIGHT:
-        if (player.x < Game.WIDTH - Player.SIZE)
-          player.updatePosition(Directions.RIGHT * Player.DX, 0);
-        break;
+    if (actionFlag == LEFT && player.x > 0) {
+      player.updatePosition(Directions.LEFT * Player.DX, 0);
+    } else if (actionFlag == RIGHT && player.x < Game.WIDTH - Player.SIZE) {
+      player.updatePosition(Directions.RIGHT * Player.DX, 0);
     }
   }
   
@@ -170,8 +165,9 @@ class Game {
       er.moveDown();
     }
     
+    /* Fire rockets at random on this timer */
     if (enemyRockets.length < 3 && Math.random() > 0.95) {
-      EnemyRow er = enemyRows.last();
+      EnemyRow er = enemyRows[(Math.random() * enemyRows.length).toInt()];
       Enemy e = er.enemies[(Math.random() * er.enemies.length).toInt()];
       enemyRockets.add(new Rocket(context, e.x + 20, e.y + Enemy.SIZE + Rocket.SIZE));
     }
@@ -181,10 +177,12 @@ class Game {
   void advanceLevel() {
     level++;
     clearIntervals();
+    playerRockets.addAll(enemyRockets);
     for (Rocket r in playerRockets) {
       r.clear();
     }
     playerRockets.clear();
+    enemyRockets.clear();
     setup();
     start();  
   }
