@@ -24,11 +24,11 @@ void main() {
 void startGame(MouseEvent event) {
   toggleButtons();
   List<String> sources = new List<String>();
-  sources.add('img/player.png');
-  sources.add('img/enemy.png');
-  sources.add('img/rocket.png');
+  sources.add('player');
+  sources.add('enemy');
+  sources.add('rocket');
   loadImages(sources, (images) {
-    game = new Game(canvas, images['player.png'], images['enemy.png'], images['rocket.png']);
+    game = new Game(canvas, images['player'], images['enemy'], images['rocket']);
     game.setup();
     game.start();
   });
@@ -42,9 +42,9 @@ void stopGame(MouseEvent event) {
 void loadImages(List<String> sources, callback) {
   Map<String, ImageElement> images = new Map<String, ImageElement>();
   for (String source in sources) {
-    ImageElement img = new ImageElement(source);
+    ImageElement img = new ImageElement('img/${source}.png');
     img.on.load.add((event) {
-      images.putIfAbsent(source, () => img);
+      images.putIfAbsent(source, fn() => img);
       if (images.length == sources.length)
         callback(images);
     });
