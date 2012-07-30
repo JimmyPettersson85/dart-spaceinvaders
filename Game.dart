@@ -12,7 +12,7 @@ class Game {
   
   CanvasRenderingContext2D context;
   Player player;
-  List<Rocket> rockets;
+  List<Rocket> playerRockets, enemyRockets;
   List<EnemyRow> enemyRows;
   int score, level, tickId, movePlayerId, moveDownId, actionFlag;
   
@@ -29,7 +29,8 @@ class Game {
     context = canvas.context2d;
     context.font = '20pt Calibri';
     player = new Player(context);
-    rockets = new List<Rocket>();
+    playerRockets = new List<Rocket>();
+    enemyRockets = new List<Rocket>();
     enemyRows = new List<EnemyRow>();
     score = 0;
     level = 1;
@@ -59,8 +60,8 @@ class Game {
       actionFlag = LEFT;
     } else if (event.keyCode == RIGHT) {
       actionFlag = RIGHT;
-    } else if (event.keyCode == FIRE && rockets.length < 5) {
-      rockets.add(new Rocket(context, player.x + 20));
+    } else if (event.keyCode == FIRE && playerRockets.length < 5) {
+      playerRockets.add(new Rocket(context, player.x + 20, Game.HEIGHT - Player.SIZE - Rocket.SIZE));
     }
   }
   
@@ -95,9 +96,14 @@ class Game {
   
   /** Updates the positions on all rockets in play. */
   void updateRocketPositions() {
-    for (Rocket r in rockets) {
+    for (Rocket r in playerRockets) {
       r.updatePosition(0, Directions.UP * Rocket.DY);
-      if (r.invalid) rockets.removeRange(rockets.indexOf(r), 1);
+      if (r.invalid) playerRockets.removeRange(playerRockets.indexOf(r), 1);
+    }
+    
+    for (Rocket r in enemyRockets) {
+      r.updatePosition(0, Directions.DOWN * Rocket.DY);
+      if (r.invalid) enemyRockets.removeRange(enemyRockets.indexOf(r), 1);
     }
     
     GameDrawer.drawBottomLine(context); 
@@ -115,14 +121,14 @@ class Game {
   void checkCollisions() {
     for (EnemyRow er in enemyRows) {
       for (Enemy e in er.enemies) {
-        for (Rocket r in rockets) {
+        for (Rocket r in playerRockets) {
           if (e.checkCollision(r)) {
             r.clear();
             e.clear();
             
             GameDrawer.updateScoreText(context, ++score);
             
-            rockets.removeRange(rockets.indexOf(r), 1);
+            playerRockets.removeRange(playerRockets.indexOf(r), 1);
             er.removeEnemy(e);
             if (er.empty) enemyRows.removeRange(enemyRows.indexOf(er), 1);
             
@@ -133,7 +139,13 @@ class Game {
           }
         }
       }
-    }     
+    }
+    
+    for (Rocket r in enemyRockets) {
+      if (player.checkCollision(r)) {
+        gameOver();
+      }
+    }
   }
   
   /** Moves the player. */
@@ -157,16 +169,22 @@ class Game {
     for (EnemyRow er in enemyRows) {
       er.moveDown();
     }
+    
+    if (enemyRockets.length < 3 && Math.random() > 0.95) {
+      EnemyRow er = enemyRows.last();
+      Enemy e = er.enemies[(Math.random() * er.enemies.length).toInt()];
+      enemyRockets.add(new Rocket(context, e.x + 20, e.y + Enemy.SIZE + Rocket.SIZE));
+    }
   }
   
   /** Advances the game one level. */
   void advanceLevel() {
     level++;
     clearIntervals();
-    for (Rocket r in rockets) {
+    for (Rocket r in playerRockets) {
       r.clear();
     }
-    rockets.clear();
+    playerRockets.clear();
     setup();
     start();  
   }

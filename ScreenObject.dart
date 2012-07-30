@@ -14,6 +14,8 @@ class ScreenObject {
   ScreenObject(this.context, this.x, this.y, this.size, this.color);
   
   void clear() => context.clearRect(x, y, size, size);
+  bool checkCollision(Rocket r) => ((r.x >= x && r.x < x + size)
+      && (r.y >= y && r.y < y + size));
   
   void draw() {
     context.beginPath();

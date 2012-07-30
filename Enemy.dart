@@ -21,8 +21,6 @@ class Enemy extends ScreenObject {
     draw();
   }
   
-  bool checkCollision(Rocket r) => ((r.x >= x && r.x < x + SIZE)
-      && (r.y >= y && r.y < y + SIZE));
   bool get bottom() => y > 700;
   
   void updatePosition(int dx, int dy) {

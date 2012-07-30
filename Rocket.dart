@@ -10,10 +10,10 @@ class Rocket extends ScreenObject {
   static final int SIZE = 5;
   static final int DY = 10;
   
-  Rocket(CanvasRenderingContext2D context, int x):
-    super(context, x, Game.HEIGHT - Player.SIZE - SIZE, SIZE, 'red'){
+  Rocket(CanvasRenderingContext2D context, int x, int y):
+    super(context, x, y, SIZE, 'red'){
   }
   
-  bool get invalid() => y < 0;
+  bool get invalid() => y < 0 || y > Game.HEIGHT;
   
 }
