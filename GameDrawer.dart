@@ -22,12 +22,14 @@ class GameDrawer {
   static void updateScoreText(CanvasRenderingContext2D context, int score) {
     context.clearRect(650, 0, 200, 40);
     context.fillStyle = 'black';
+    context.font = '20pt Calibri';
     context.fillText('Score: $score', 670, 30);
   }
   
   static void updateLevelText(CanvasRenderingContext2D context, int level) {
     context.clearRect(550, 0, 100, 40);
     context.fillStyle = 'black';
+    context.font = '20pt Calibri';
     context.fillText('Level: $level', 550, 30);    
   }
   
