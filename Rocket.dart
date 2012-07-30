@@ -14,13 +14,13 @@ class Rocket extends ScreenObject {
     super(context, x, Game.HEIGHT - Player.SIZE - SIZE, SIZE, 'red'){
   }
   
+  bool get invalid() => y < 0;
+  
   /** Not using direction here, rockets can only go up. */
   void updatePosition(int direction) {
     clear();
     y -= DY;
     draw();
   }
-  
-  bool get invalid() => y < 0;
   
 }

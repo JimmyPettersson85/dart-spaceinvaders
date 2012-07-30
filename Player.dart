@@ -15,7 +15,8 @@ class Player extends ScreenObject {
     draw();
   }
   
-  void updatePosition(int direction) => direction == Directions.LEFT ? moveLeft() : moveRight();
+  void updatePosition(int direction) => direction == Directions.LEFT ?
+      moveLeft() : moveRight();
   
   void moveLeft() {
     if (x > 0) {

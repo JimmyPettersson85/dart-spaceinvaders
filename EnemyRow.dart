@@ -20,6 +20,9 @@ class EnemyRow {
     }
   }
   
+  void removeEnemy(Enemy e) => enemies.removeRange(enemies.indexOf(e), 1);
+  bool get empty() => enemies.isEmpty();
+  
   /** Updates all enemy positions and checks if direction needs to change. */
   void updateEnemyPositions() {
     for (Enemy e in enemies) {
@@ -46,9 +49,5 @@ class EnemyRow {
     
     return false;
   }
-  
-  void removeEnemy(Enemy e) => enemies.removeRange(enemies.indexOf(e), 1);
-  
-  bool get empty() => enemies.isEmpty();
   
 }

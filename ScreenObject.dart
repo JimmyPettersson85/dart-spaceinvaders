@@ -13,13 +13,13 @@ class ScreenObject {
   
   ScreenObject(this.context, this.x, this.y, this.size, this.color);
   
+  void clear() => context.clearRect(x, y, size, size);
+  
   void draw() {
     context.beginPath();
     context.rect(x, y, size, size);
     context.fillStyle = color;
     context.fill();
   }
-  
-  void clear() => context.clearRect(x, y, size, size);
   
 }
