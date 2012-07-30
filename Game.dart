@@ -28,7 +28,6 @@ class Game {
   
   Game(CanvasElement canvas, ImageElement playerImage, ImageElement enemyImage, ImageElement rocketImage) {
     context = canvas.context2d;
-    context.font = '20pt Calibri';
     Game.playerImage = playerImage;
     Game.enemyImage = enemyImage;
     Game.rocketImage = rocketImage;
@@ -65,7 +64,7 @@ class Game {
     } else if (event.keyCode == RIGHT) {
       actionFlag = RIGHT;
     } else if (event.keyCode == FIRE && playerRockets.length < 5) {
-      playerRockets.add(new Rocket(context, player.x + 20, Game.HEIGHT - Player.SIZE - Rocket.SIZE));
+      playerRockets.add(new Rocket(context, player.centerX, player.topY));
     }
   }
   
@@ -173,7 +172,7 @@ class Game {
     if (enemyRockets.length < 3 && Math.random() > 0.95) {
       EnemyRow er = enemyRows[(Math.random() * enemyRows.length).toInt()];
       Enemy e = er.enemies[(Math.random() * er.enemies.length).toInt()];
-      enemyRockets.add(new Rocket(context, e.x + 20, e.y + Enemy.SIZE + Rocket.SIZE));
+      enemyRockets.add(new Rocket(context, e.centerX, e.bottomY));
     }
   }
   
