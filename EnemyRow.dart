@@ -36,7 +36,7 @@ class EnemyRow {
   
   bool reachedBottom() {
     for (Enemy e in enemies) {
-      if (e.bottom) return true;
+      if (e.atBottom) return true;
     }
     
     return false;
