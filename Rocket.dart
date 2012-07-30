@@ -11,7 +11,7 @@ class Rocket extends ScreenObject {
   static final int DY = 10;
   
   Rocket(CanvasRenderingContext2D context, int x, int y):
-    super(context, x, y, SIZE, 'red'){
+    super(context, x, y, SIZE, Game.rocketImage){
   }
   
   bool get invalid() => y < 0 || y > Game.HEIGHT;

@@ -15,7 +15,7 @@ class Enemy extends ScreenObject {
   static final int DY = 1;
   
   Enemy(CanvasRenderingContext2D context, int direction, int x, int y):
-    super(context, x, y, SIZE, 'black'){
+    super(context, x, y, SIZE, Game.enemyImage){
     this.startX = x;
     this.direction = direction;
     draw();

@@ -23,14 +23,32 @@ void main() {
 
 void startGame(MouseEvent event) {
   toggleButtons();
-  game = new Game(canvas);
-  game.setup();
-  game.start();
+  List<String> sources = new List<String>();
+  sources.add('player.png');
+  sources.add('enemy.png');
+  sources.add('rocket.png');
+  loadImages(sources, (images) {
+    game = new Game(canvas, images['player.png'], images['enemy.png'], images['rocket.png']);
+    game.setup();
+    game.start();
+  });
 }
 
 void stopGame(MouseEvent event) {
   toggleButtons();
   game.stop();
+}
+
+void loadImages(List<String> sources, callback) {
+  Map<String, ImageElement> images = new Map<String, ImageElement>();
+  for (String source in sources) {
+    ImageElement img = new ImageElement(source);
+    img.on.load.add((event) {
+      images.putIfAbsent(source, () => img);
+      if (images.length == sources.length)
+        callback(images);
+    });
+  }
 }
 
 void toggleButtons() {

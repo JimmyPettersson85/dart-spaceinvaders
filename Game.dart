@@ -15,6 +15,7 @@ class Game {
   List<Rocket> playerRockets, enemyRockets;
   List<EnemyRow> enemyRows;
   int score, level, tickId, movePlayerId, moveDownId, actionFlag;
+  static ImageElement playerImage, enemyImage, rocketImage;
   
   static final int WIDTH = 800;
   static final int HEIGHT = 800;
@@ -25,9 +26,12 @@ class Game {
   static final int DELAY = 20; // 50fps
   static final int MOVE_DOWN_DELAY = 100;
   
-  Game(CanvasElement canvas) {
+  Game(CanvasElement canvas, ImageElement playerImage, ImageElement enemyImage, ImageElement rocketImage) {
     context = canvas.context2d;
     context.font = '20pt Calibri';
+    Game.playerImage = playerImage;
+    Game.enemyImage = enemyImage;
+    Game.rocketImage = rocketImage;
     player = new Player(context);
     playerRockets = new List<Rocket>();
     enemyRockets = new List<Rocket>();
@@ -38,7 +42,7 @@ class Game {
     window.on.keyUp.add(handleKeyUp);
   }
   
-  /** Sets yp the initial game state and draws the game board. */
+  /** Sets up the initial game state and draws the game board. */
   void setup() {
     initializeLevel();
     GameDrawer.updateScoreText(context, score);

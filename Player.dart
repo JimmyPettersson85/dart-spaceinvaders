@@ -11,7 +11,7 @@ class Player extends ScreenObject {
   static final int DX = 10;
   
   Player(CanvasRenderingContext2D context):
-    super(context, 0, Game.HEIGHT - SIZE, SIZE, 'blue'){
+    super(context, 0, Game.HEIGHT - SIZE, SIZE, Game.playerImage){
     draw();
   }
   
