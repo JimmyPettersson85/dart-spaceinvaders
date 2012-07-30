@@ -7,8 +7,12 @@
 
 class GameDrawer {
   
-  static void clearScreen(CanvasRenderingContext2D context) {
-    context.clearRect(0, 0, Game.WIDTH, Game.HEIGHT);
+  static void drawBackground(CanvasRenderingContext2D context) {
+    var grd = context.createLinearGradient(0, 0, Game.WIDTH, Game.HEIGHT);
+    grd.addColorStop(0, "#8ED6FF");
+    grd.addColorStop(1, "#004CB3");
+    context.fillStyle = grd;
+    context.fillRect(0, 0, Game.WIDTH, Game.HEIGHT); 
   }
   
   static void drawBottomLine(CanvasRenderingContext2D context) {
@@ -20,21 +24,18 @@ class GameDrawer {
   }
   
   static void updateScoreText(CanvasRenderingContext2D context, int score) {
-    context.clearRect(650, 0, 200, 40);
     context.fillStyle = 'black';
     context.font = '20pt Calibri';
     context.fillText('Score: $score', 670, 30);
   }
   
   static void updateLevelText(CanvasRenderingContext2D context, int level) {
-    context.clearRect(550, 0, 100, 40);
     context.fillStyle = 'black';
     context.font = '20pt Calibri';
     context.fillText('Level: $level', 550, 30);    
   }
   
   static void drawGameOver(CanvasRenderingContext2D context) {
-    context.clearRect(0, 40, Game.WIDTH, Game.HEIGHT);
     context.fillStyle = 'black';
     context.font = '40pt Calibri';
     context.fillText('Game Over', Game.WIDTH/2 - 125, Game.HEIGHT/2);

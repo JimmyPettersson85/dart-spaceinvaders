@@ -15,4 +15,10 @@ class Player extends ScreenObject {
     draw();
   }
   
+  /** Override to let the Game.tick() function do the drawing to sync everything */
+  void updatePosition(int dx, int dy) {
+    x += dx;
+    y += dy;
+  }
+  
 }

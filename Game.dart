@@ -28,7 +28,6 @@ class Game {
   
   Game(CanvasElement canvas, ImageElement playerImage, ImageElement enemyImage, ImageElement rocketImage) {
     context = canvas.context2d;
-    GameDrawer.clearScreen(context);
     Game.playerImage = playerImage;
     Game.enemyImage = enemyImage;
     Game.rocketImage = rocketImage;
@@ -44,10 +43,8 @@ class Game {
   
   /** Sets up the initial game state and draws the game board. */
   void setup() {
+    drawStatics();
     initializeLevel();
-    GameDrawer.updateScoreText(context, score);
-    GameDrawer.updateLevelText(context, level);
-    GameDrawer.drawBottomLine(context);
   }
   
   /** Add enemies to the level. */
@@ -85,7 +82,7 @@ class Game {
   /** Stops the current game. */
   void stop() {
     clearIntervals();
-    GameDrawer.clearScreen(context);
+    drawStatics();
   }
   
   /** 
@@ -93,6 +90,8 @@ class Game {
    * Updates all the states of the game and checks for collisions.
    */
   void tick() {
+    drawStatics();
+    player.draw();
     updateRocketPositions();
     updateEnemyPositions();
     checkCollisions();
@@ -108,9 +107,7 @@ class Game {
     for (Rocket r in enemyRockets) {
       r.updatePosition(0, Directions.DOWN * Rocket.DY);
       if (r.invalid) enemyRockets.removeRange(enemyRockets.indexOf(r), 1);
-    }
-    
-    GameDrawer.drawBottomLine(context); 
+    } 
   }
   
   /** Updates the position of all enemies and checks for game over. */
@@ -128,11 +125,7 @@ class Game {
       for (Enemy e in er.enemies) {
         for (Rocket r in playerRockets) {
           if (e.checkCollision(r)) {
-            r.clear();
-            e.clear();
-            
-            GameDrawer.updateScoreText(context, ++score);
-            
+            score++;
             playerRockets.removeRange(playerRockets.indexOf(r), 1);
             er.removeEnemy(e);
             if (er.empty) enemyRows.removeRange(enemyRows.indexOf(er), 1);
@@ -182,10 +175,7 @@ class Game {
   void advanceLevel() {
     level++;
     clearIntervals();
-    playerRockets.addAll(enemyRockets);
-    for (Rocket r in playerRockets) {
-      r.clear();
-    }
+    drawStatics();
     playerRockets.clear();
     enemyRockets.clear();
     setup();
@@ -199,8 +189,17 @@ class Game {
     window.clearInterval(moveDownId); 
   }
   
+  /** Draws the background gradient, the score and level texts and the bottom line */
+  void drawStatics() {
+    GameDrawer.drawBackground(context);
+    GameDrawer.updateScoreText(context, score);
+    GameDrawer.updateLevelText(context, level);
+    GameDrawer.drawBottomLine(context);
+  }
+  
   void gameOver() {
     clearIntervals();
+    drawStatics();
     GameDrawer.drawGameOver(context);
     startButton.disabled = false;
     stopButton.disabled = true;
