@@ -28,6 +28,7 @@ class Game {
   
   Game(CanvasElement canvas, ImageElement playerImage, ImageElement enemyImage, ImageElement rocketImage) {
     context = canvas.context2d;
+    GameDrawer.clearScreen(context);
     Game.playerImage = playerImage;
     Game.enemyImage = enemyImage;
     Game.rocketImage = rocketImage;
@@ -200,6 +201,8 @@ class Game {
   void gameOver() {
     clearIntervals();
     GameDrawer.drawGameOver(context);
+    startButton.disabled = false;
+    stopButton.disabled = true;
   }
   
 }
