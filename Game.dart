@@ -121,7 +121,7 @@ class Game {
     }
   }
   
-  /** Collision detection between rockets and enemies. */
+  /** Collision detection between rockets and enemies/player. */
   void checkCollisions() {
     /* Player rockets hitting enemies */
     for (EnemyRow er in enemyRows) {
@@ -150,6 +150,7 @@ class Game {
     for (Rocket r in enemyRockets) {
       if (player.checkCollision(r)) {
         gameOver();
+        break;
       }
     }
   }
