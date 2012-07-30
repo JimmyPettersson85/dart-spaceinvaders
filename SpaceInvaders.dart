@@ -24,9 +24,9 @@ void main() {
 void startGame(MouseEvent event) {
   toggleButtons();
   List<String> sources = new List<String>();
-  sources.add('player.png');
-  sources.add('enemy.png');
-  sources.add('rocket.png');
+  sources.add('img/player.png');
+  sources.add('img/enemy.png');
+  sources.add('img/rocket.png');
   loadImages(sources, (images) {
     game = new Game(canvas, images['player.png'], images['enemy.png'], images['rocket.png']);
     game.setup();
