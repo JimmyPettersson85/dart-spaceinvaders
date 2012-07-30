@@ -16,11 +16,11 @@ class Rocket extends ScreenObject {
   
   bool get invalid() => y < 0;
   
-  /** Not using direction here, rockets can only go up. */
+  /** Not using direction here, rockets can only go up. 
   void updatePosition(int direction) {
     clear();
     y -= DY;
     draw();
-  }
+  }*/
   
 }

@@ -22,4 +22,11 @@ class ScreenObject {
     context.fill();
   }
   
+  void updatePosition(int dx, int dy) {
+    clear();
+    x += dx;
+    y += dy;
+    draw();
+  }
+  
 }

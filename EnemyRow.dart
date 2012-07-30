@@ -9,36 +9,28 @@
 class EnemyRow {
   
   List<Enemy> enemies;
-  int direction;
   
-  EnemyRow(CanvasRenderingContext2D context, int level, int startX, int startY) {
+  EnemyRow(CanvasRenderingContext2D context, int startX, int startY) {
     enemies = new List<Enemy>();
-    direction = Directions.RIGHT;
     
     for (int i = 0; i < 10; i++) {
-      enemies.add(new Enemy(context, level, startX + (i*60), startY));
+      enemies.add(new Enemy(context, Directions.RIGHT, startX + (i*60), startY));
     }
   }
   
   void removeEnemy(Enemy e) => enemies.removeRange(enemies.indexOf(e), 1);
   bool get empty() => enemies.isEmpty();
   
-  /** Updates all enemy positions and checks if direction needs to change. */
+  /** Updates all enemy positions */
   void updateEnemyPositions() {
     for (Enemy e in enemies) {
-      int x = e.updatePosition(direction);
-      if (x >= Game.WIDTH - Enemy.SIZE || x <= 0){
-        direction *= -1;
-        
-        // Adjust for changing direction AFTER moving the first enemy in the array
-        if (x <= 0) e.adjustOffset(direction);
-      }
+      e.updatePosition(Enemy.DX, 0);
     }
   }
   
   void moveDown() {
     for (Enemy e in enemies) {
-      e.moveDown(Directions.DOWN);
+      e.updatePosition(0, Directions.DOWN * Enemy.DY);
     }
   }
   

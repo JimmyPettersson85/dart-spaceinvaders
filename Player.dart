@@ -15,23 +15,4 @@ class Player extends ScreenObject {
     draw();
   }
   
-  void updatePosition(int direction) => direction == Directions.LEFT ?
-      moveLeft() : moveRight();
-  
-  void moveLeft() {
-    if (x > 0) {
-      clear();
-      x -= DX;
-      draw();
-    }
-  }
-  
-  void moveRight() {
-    if (x < Game.WIDTH - SIZE) {
-      clear();
-      x += DX;
-      draw();
-    }
-  }
-  
 }

@@ -47,10 +47,10 @@ class Game {
   
   /** Add enemies to the level. */
   void initializeLevel() {
-      enemyRows.add(new EnemyRow(context, level, 0, 50));
-      enemyRows.add(new EnemyRow(context, level, 60, 100));
-      enemyRows.add(new EnemyRow(context, level, 120, 150));
-      enemyRows.add(new EnemyRow(context, level, 180, 200));
+      enemyRows.add(new EnemyRow(context, 60, 50));
+      enemyRows.add(new EnemyRow(context, 60, 100));
+      enemyRows.add(new EnemyRow(context, 60, 150));
+      enemyRows.add(new EnemyRow(context, 60, 200));
   }
   
   /** Event handler for when a key is pressed. */
@@ -96,7 +96,7 @@ class Game {
   /** Updates the positions on all rockets in play. */
   void updateRocketPositions() {
     for (Rocket r in rockets) {
-      r.updatePosition(Directions.UP);
+      r.updatePosition(0, Directions.UP * Rocket.DY);
       if (r.invalid) rockets.removeRange(rockets.indexOf(r), 1);
     }
     
@@ -142,10 +142,12 @@ class Game {
     
     switch (actionFlag) {
       case LEFT:
-        player.updatePosition(Directions.LEFT);
+        if (player.x > 0)
+          player.updatePosition(Directions.LEFT * Player.DX, 0);
         break;
       case RIGHT:
-        player.updatePosition(Directions.RIGHT);
+        if (player.x < Game.WIDTH - Player.SIZE)
+          player.updatePosition(Directions.RIGHT * Player.DX, 0);
         break;
     }
   }
