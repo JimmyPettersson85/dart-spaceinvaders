@@ -9,8 +9,8 @@ class GameDrawer {
   
   static void drawBackground(CanvasRenderingContext2D context) {
     var grd = context.createLinearGradient(0, 0, Game.WIDTH, Game.HEIGHT);
-    grd.addColorStop(0, "#8ED6FF");
-    grd.addColorStop(1, "#004CB3");
+    grd.addColorStop(0, '#8ED6FF');
+    grd.addColorStop(1, '#004CB3');
     context.fillStyle = grd;
     context.fillRect(0, 0, Game.WIDTH, Game.HEIGHT); 
   }
