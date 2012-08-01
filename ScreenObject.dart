@@ -19,8 +19,7 @@ class ScreenObject {
   int get rocketTop() => y - Rocket.SIZE;
   /* Make the rocket appear at the bottom of the object */
   int get rocketBottom() => y + size + Rocket.SIZE;
-  
-  //void clear() => context.clearRect(x, y, size, size); - NOT USED ATM
+  /* Check collision between a rocket and the object */
   bool checkCollision(Rocket r) => ((r.x >= x && r.x < x + size)
       && (r.y >= y && r.y < y + size));
   
@@ -29,7 +28,6 @@ class ScreenObject {
   }
   
   void updatePosition(int dx, int dy) {
-    //clear();
     x += dx;
     y += dy;
     draw();
