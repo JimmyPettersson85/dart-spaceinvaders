@@ -14,6 +14,7 @@ class Rocket extends ScreenObject {
     super(context, x, y, SIZE, Game.rocketImage){
   }
   
+  /* Rocket is out of bounds */
   bool get invalid() => y < 0 || y > Game.HEIGHT;
   
 }
