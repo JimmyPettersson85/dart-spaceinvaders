@@ -14,7 +14,7 @@ class Game {
   Player player;
   List<Rocket> playerRockets, enemyRockets;
   List<EnemyRow> enemyRows;
-  int score, level, tickId, movePlayerId, moveDownId, actionFlag;
+  int score, level, tickId, movePlayerId, moveEnemyDownId, actionFlag;
   static ImageElement playerImage, enemyImage, rocketImage;
   
   static final int WIDTH = 800;
@@ -31,7 +31,6 @@ class Game {
     Game.playerImage = playerImage;
     Game.enemyImage = enemyImage;
     Game.rocketImage = rocketImage;
-    player = new Player(context);
     playerRockets = new List<Rocket>();
     enemyRockets = new List<Rocket>();
     enemyRows = new List<EnemyRow>();
@@ -44,6 +43,7 @@ class Game {
   /** Sets up the initial game state and draws the game board. */
   void setup() {
     drawStatics();
+    player = new Player(context);
     initializeLevel();
   }
   
@@ -76,7 +76,7 @@ class Game {
     tickId = window.setInterval(tick, DELAY);
     movePlayerId = window.setInterval(movePlayer, DELAY);
     int moveDelay = MOVE_DOWN_DELAY - 5 * level;
-    moveDownId = window.setInterval(moveDown, moveDelay);
+    moveEnemyDownId = window.setInterval(moveEnemyDown, moveDelay);
   }
   
   /** Stops the current game. */
@@ -158,7 +158,7 @@ class Game {
   }
   
   /** Moves the enemies downward slowly. Acts on a separate timer. */
-  void moveDown() {
+  void moveEnemyDown() {
     for (EnemyRow er in enemyRows) {
       er.moveDown();
     }
@@ -186,7 +186,7 @@ class Game {
   void clearIntervals() {
     window.clearInterval(tickId);
     window.clearInterval(movePlayerId);
-    window.clearInterval(moveDownId); 
+    window.clearInterval(moveEnemyDownId); 
   }
   
   /** Draws the background gradient, the score and level texts and the bottom line */
