@@ -34,6 +34,7 @@ class Game {
     playerRockets = new List<Rocket>();
     enemyRockets = new List<Rocket>();
     enemyRows = new List<EnemyRow>();
+    player = new Player(context);
     score = 0;
     level = 1;
     window.on.keyDown.add(handleKeyDown);
@@ -43,7 +44,6 @@ class Game {
   /** Sets up the initial game state and draws the game board. */
   void setup() {
     drawStatics();
-    player = new Player(context);
     initializeLevel();
   }
   
