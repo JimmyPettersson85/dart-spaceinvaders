@@ -160,7 +160,7 @@ class Game {
   /** Moves the enemies downward slowly. Acts on a separate timer. */
   void moveEnemyDown() {
     for (EnemyRow er in enemyRows) {
-      er.moveDown();
+      er.moveEnemyDown();
     }
     
     /* Fire rockets at random on this timer */

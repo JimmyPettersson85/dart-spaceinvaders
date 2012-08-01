@@ -28,7 +28,7 @@ class EnemyRow {
     }
   }
   
-  void moveDown() {
+  void moveEnemyDown() {
     for (Enemy e in enemies) {
       e.updatePosition(0, Directions.DOWN * Enemy.DY);
     }
